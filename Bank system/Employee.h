@@ -2,7 +2,7 @@
 #include<iostream>
 #include <vector>
 #include <iterator>
-#include "Client.h"
+#include"Client.h"
 using namespace std;
 class Employee : public Person
 {
@@ -24,7 +24,7 @@ public:
 	void addClient(Client& client) {
 		clients.push_back(client);
 	}
-	Client* searchClient(int id) {
+	static Client* searchClient(int id) {
 		for (int i = 0; i < clients.size(); i++) {
 			if (clients[i].getId() == id) {
 				Client* p = &clients[i];

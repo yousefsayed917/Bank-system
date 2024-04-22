@@ -34,6 +34,7 @@ public:
     string getPassword() {
         return this->password;
     }
-    virtual void Display() = 0;
-};
+    void Display() {
 
+    }
+};
