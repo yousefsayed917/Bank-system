@@ -127,7 +127,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Bank system.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="DataSourceInterface.cpp" />
+    <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="Fileshelper.cpp" />
+    <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="Validation.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Admin.h" />
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="DataSourceInterface.h" />
+    <ClInclude Include="Employee.h" />
+    <ClInclude Include="FileManager.h" />
+    <ClInclude Include="Fileshelper.h" />
+    <ClInclude Include="Parser.h" />
+    <ClInclude Include="Person.h" />
+    <ClInclude Include="Validation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
