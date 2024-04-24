@@ -35,6 +35,7 @@ public:
         return this->password;
     }
     void Display() {
-
+        cout << " Name : " << getName() << endl;
+        cout << " id : " << getId() << endl;
     }
 };

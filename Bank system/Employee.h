@@ -6,7 +6,7 @@
 using namespace std;
 class Employee : public Person
 {
-private:
+protected:
 	double salary;
 public:
 	Employee() : Person() {
@@ -21,43 +21,10 @@ public:
 	double getSalary() {
 		return salary;
 	}
-	void addClient(Client& client) {
-		clients.push_back(client);
-	}
-	static Client* searchClient(int id) {
-		for (int i = 0; i < clients.size(); i++) {
-			if (clients[i].getId() == id) {
-				Client* p = &clients[i];
-				return p;
-			}
-		}
-		cout << " this client is not found \n";
-		return nullptr;
-	}
-	void listClient() {
-		for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
-			cIt->Display();
-			cout << "===========================\n";
-		}
-	}
-	void editClient(int id, string name, string password, double balance) {
-
-		Client* p = searchClient(id);
-
-		if (p != nullptr) {
-			p->setName(name);
-			p->setPassword(password);
-			p->setBalance(balance);
-		}
-		else {
-			cout << " this client is not found \n";
-		}
-	}
 	void Display() {
-		cout << " Name : " << getName() << endl;
-		cout << " id : " << getId() << endl;
+		Person::Display();
 		cout << "Salary : " << getSalary() << endl;
-		cout << "====================================== \n";
+		cout << "================\n";
 	}
 };
 static vector<Employee> employees;

@@ -15,6 +15,11 @@ public:
 	Client(int id, string name, string password, double balance) :Person(id, name, password) {
 		this->balance = balance;
 	}
+	Client( string name, string password, double balance) {
+		this->name = name;
+		this->password = password;
+		this->balance = balance;
+	}
 	void setBalance(double balance) {
 		this->balance = balance;
 	}
@@ -46,10 +51,9 @@ public:
 		cout << getBalance() << endl;
 	}
 	void Display() {
-		cout << " Name : " << getName() << endl;
-		cout << " id : " << getId() << endl;
+		Person::Display();
 		cout << " Balance : " << getBalance() << endl;
-		cout << "====================================== \n";
+		cout << "================= \n";
 	}
 };
 static vector<Client> clients;
