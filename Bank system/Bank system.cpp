@@ -10,9 +10,11 @@ int main()
 	Screens::bankName();
 	this_thread::sleep_for(chrono::milliseconds(2000));
 	system("cls");
-	Screens::welcom();
+	Screens::welcome();
 	this_thread::sleep_for(chrono::milliseconds(2000));
 	system("cls");
 	Screens::loginOptions();
-	Screens::loginAs();
+	Screens::LoginScreen(Screens::loginAs());
+
+
 }

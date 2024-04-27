@@ -1,6 +1,7 @@
 #pragma once
 #include "Client.h"
 #include "SuperEmployee.h"
+using namespace std;
 class ClientManager
 {
 public:
@@ -24,7 +25,7 @@ public:
 		}
 		cout << "password updated successfully" << endl;
 	}
-	static Client* Login(int id,string password) {
+	static Client* Login(int id, string password) {
 		SuperEmployee SE;
 		Client* p = SE.searchClient(id);
 		if (p != nullptr) {
@@ -39,11 +40,11 @@ public:
 		}
 		else
 			cout << "Not found" << endl;
-			return nullptr;
+		return nullptr;
 	}
 	static void ClientOptions(Client* client) {
 		int opt;
-		while(true)
+		while (true)
 		{
 			int x;
 			cout << " your choice is : ";
@@ -73,16 +74,18 @@ public:
 				cout << "  the amount is : ";
 				cin >> amount;
 				client->withdraw(amount);
+				break;
 			}
-				  break;
 			case 5: {
+				system("cls");
 				double amount;
 				cout << "  the amount is : ";
 				cin >> amount;
 				client->deposit(amount);
+				break;
 			}
-				  break;
 			case 6: {
+				system("cls");
 				int id;
 				cout << " enter id of the account you will transfar to it ";
 				cin >> id;
@@ -103,16 +106,14 @@ public:
 						break;
 					}
 				}
+				break;
 			}
-				  break;
-			case 7:
-				system("cls");
-				//Screens::loginOptions();
+			case 7: {
 				
 				break;
 			}
+			}
 			do {
-				
 				cout << "[1] Client menu\t\t[0] Exit\n";
 				cout << "..::Enter the Choice: ";
 				cin >> opt;
@@ -129,10 +130,8 @@ public:
 					cout << "\n\t\t\t\t\t\t\t\t\t\tInvalid chois!" << endl;
 					break;
 				}
-
 			} while (opt < 0 || opt > 1);
 		}
 	}
-	
 };
 

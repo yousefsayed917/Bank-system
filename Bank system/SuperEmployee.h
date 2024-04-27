@@ -1,6 +1,7 @@
 #pragma once
 #include"Employee.h"
 #include"Fileshelper.h"
+
 class SuperEmployee : public Employee
 {
 public:
@@ -40,6 +41,7 @@ public:
 			}
 		}
 	}
+	
 };
 
 
