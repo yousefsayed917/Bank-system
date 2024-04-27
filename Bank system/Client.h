@@ -28,11 +28,15 @@ public:
 	}
 	void deposit(double amount) {
 		if (amount > 0)
+		{
 			this->balance += amount;
+			cout << "done" << endl;
+		}
 	}
 	void withdraw(double amount) {
 		if (amount <= balance) {
 			this->balance -= amount;
+			cout << "Amount added successfully" << endl;
 		}
 		else {
 			cout << " Amount exceeded balance " << endl;
@@ -42,6 +46,7 @@ public:
 		if (amount <= balance) {
 			balance -= amount;
 			c.deposit(amount);
+			cout << "done" << endl;
 		}
 		else {
 			cout << " Amount exceeded balance " << endl;

@@ -14,7 +14,7 @@ public:
 		clients.push_back(client);
 		Fileshelper::saveClient(client);
 	}
-	static Client* searchClient(int id) {
+	Client* searchClient(int id) {
 
 		for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
 			if (cIt->getId() == id) return cIt._Ptr;

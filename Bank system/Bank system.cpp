@@ -1,16 +1,18 @@
 #include <iostream>
-#include"Client.h"
 #include"Fileshelper.h"
-#include "SuperEmployee.h"
-
+#include"Screens.h"
 using namespace std;
 
 int main()
 {
-	/*Client c(1, "mohamed", "moajjas", 2000);
-	SuperEmployee s;
-	s.addClient(c);
-	s.editClient(1, "yousif", "yousif123", 20000);
-	s.listClient();*/
-	
+
+	Fileshelper::getClients();
+	Screens::bankName();
+	this_thread::sleep_for(chrono::milliseconds(2000));
+	system("cls");
+	Screens::welcom();
+	this_thread::sleep_for(chrono::milliseconds(2000));
+	system("cls");
+	Screens::loginOptions();
+	Screens::loginAs();
 }
