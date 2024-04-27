@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
+    <ClCompile Include="AdminManager.cpp" />
     <ClCompile Include="Bank system.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="DataSourceInterface.cpp" />
     <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="EmployeeManager.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Fileshelper.cpp" />
     <ClCompile Include="Parser.cpp" />
@@ -144,10 +146,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Admin.h" />
+    <ClInclude Include="AdminManager.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="DataSourceInterface.h" />
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="EmployeeManager.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Fileshelper.h" />
     <ClInclude Include="Parser.h" />

@@ -15,6 +15,11 @@ public:
 	Employee(int id, string name, string password, double salary) : Person(id, name, password) {
 		setSalary(salary);
 	}
+	Employee(string name, string password, double salary) {
+		this->name = name;
+		this->password = password;
+		setSalary(salary);
+	}
 	void setSalary(double salary) {
 			this->salary = salary;
 	}
