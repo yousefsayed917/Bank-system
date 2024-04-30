@@ -11,26 +11,31 @@ public:
 	static void bankName() {
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "\t\t\t\t    ## #                 ##  ##         ## #" << endl;
-		cout << "\t\t\t\t    ## #####    ######   ##  ##      ## ##   ##   ##" << endl;
+		cout << "\t\t\t\t    ## #####    #####    ##  ##      ## ##   ##   ##" << endl;
 		cout << "\t\t\t\t    ####   ##       ##   ##  ##  ## ##  ##   ##   ##" << endl;
 		cout << "\t\t\t\t  #########################  ##  ###################" << endl;
-
-		cout << "\t\t\t\t                                               #" << endl;
+		cout << "\t\t\t\t                                                #" << endl;
 
 	}
 	static void welcome() {
 		int t = 150;
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
-		cout << "\t         ##             ##  #######  ##         #######    #######    ####   ####  #######" << endl;
+		cout << "\t\t\t\t\t     ##" << endl;
 		this_thread::sleep_for(chrono::milliseconds(t));
-		cout << "\t          ##           ##   ##       ##        ##         ##     ##   ## ## ## ##  ##" << endl;
+		cout << "\t\t\t\t\t     ##" << endl;
 		this_thread::sleep_for(chrono::milliseconds(t));
-		cout << "\t           ##   ###   ##    #######  ##       ##         ##       ##  ##  #### ##  #######" << endl;
+		cout << "\t\t\t\t\t     ##         ###           #####" << endl;
 		this_thread::sleep_for(chrono::milliseconds(t));
-		cout << "\t            ## ## ## ##     ##       ##        ##         ##     ##   ##       ##  ##" << endl;
+		cout << "\t\t\t\t\t     ##   ##      ##   ##    ##   ##" << endl;
 		this_thread::sleep_for(chrono::milliseconds(t));
-		cout << "\t             ###   ###      #######  #######    #######    #######    ##       ##  #######" << endl;
-		cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
+		cout << "\t\t\t\t\t     ###############   #############" << endl;
+		this_thread::sleep_for(chrono::milliseconds(t));
+		cout << "\t\t\t\t\t           #           ##" << endl;
+		this_thread::sleep_for(chrono::milliseconds(t));
+		cout << "\t\t\t\t\t                      ##" << endl;
+		this_thread::sleep_for(chrono::milliseconds(t));
+		cout << "\t\t\t\t\t                    ##" << endl;
+		cout << "\n\n\n\n\n\n\n\n\n\n";
 	}
 	static void  loginOptions() {
 		cout << "(1) Client \n";
@@ -87,7 +92,14 @@ public:
 						cin >> opt;
 						switch (opt)
 						{
-						case 0:exit(0);
+						case 0:
+						{
+							Fileshelper::ClearFile(C_FILE_PATH, CID_FILE_PATH);
+							for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
+								Fileshelper::saveClient(*cIt);
+							}
+							exit(0);
+						}
 							break;
 						case 1:
 							system("cls");
@@ -96,7 +108,7 @@ public:
 								Logout();
 							break;
 						default:
-							cout << "\n\t\t\t\t\t\t\t\t\t\tInvalid choise!" << endl;
+							cout << "Invalid choise!" << endl;
 							break;
 						}
 					} while (opt == 1);
@@ -120,12 +132,22 @@ public:
 					Logout();
 				else {
 					do {
-						cout << "[1] Client menu\t\t[0] Exit\n";
+						cout << "[1] Employee menu\t\t[0] Exit\n";
 						cout << "..::Enter the Choice: ";
 						cin >> opt;
 						switch (opt)
 						{
-						case 0:exit(0);
+						case 0: {
+							Fileshelper::ClearFile(E_FILE_PATH, EID_FILE_PATH);
+							for (eIt = employees.begin(); eIt != employees.end(); eIt++) {
+								Fileshelper::saveEmployee(*eIt);
+							}
+							Fileshelper::ClearFile(C_FILE_PATH, CID_FILE_PATH);
+							for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
+								Fileshelper::saveClient(*cIt);
+							}
+							exit(0);
+						}
 							break;
 						case 1:
 							system("cls");
@@ -134,7 +156,7 @@ public:
 								Logout();
 							break;
 						default:
-							cout << "\n\t\t\t\t\t\t\t\t\t\tInvalid choise!" << endl;
+							cout << "\nInvalid choise!" << endl;
 							break;
 						}
 					} while (opt == 1);

@@ -30,23 +30,23 @@ public:
 		if (amount > 0)
 		{
 			this->balance += amount;
-			cout << "done" << endl;
+			cout << "The operation completed successfully" << endl;
 		}
 	}
 	void withdraw(double amount) {
 		if (amount <= balance) {
 			this->balance -= amount;
-			cout << "Amount added successfully" << endl;
+			cout << "Operation completed successfully" << endl;
 		}
 		else {
-			cout << " Amount exceeded balance " << endl;
+			cout << "Amount exceeded balance " << endl;
 		}
 	}
 	void transfareTo(Client& c, double amount) {
 		if (amount <= balance) {
 			balance -= amount;
 			c.deposit(amount);
-			cout << "done" << endl;
+			cout << "Operation completed successfully" << endl;
 		}
 		else {
 			cout << " Amount exceeded balance " << endl;

@@ -12,14 +12,12 @@ public:
 	}
 	void addClient(Client& client) {
 		clients.push_back(client);
-		Fileshelper::saveClient(client);
 	}
 	Client* searchClient(int id) {
 
 		for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
 			if (cIt->getId() == id) return cIt._Ptr;
 		}
-		cout << " this employee is not found \n";
 		return nullptr;
 	}
 
@@ -34,21 +32,15 @@ public:
 			p->setName(name);
 			p->setPassword(password);
 			p->setBalance(balance);
-			Fileshelper::ClearFile(C_FILE_PATH, CID_FILE_PATH);
-			for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
-				Fileshelper::saveClient(*cIt);
-			}
 		}
 	}
 	void addEmployee(Employee& employee) {
 		employees.push_back(employee);
-		Fileshelper::saveEmployee(employee);
 	}
 	Employee* searchEmployee(int id) {
 		for (eIt = employees.begin(); eIt != employees.end(); eIt++) {
 			if (eIt->getId() == id) return eIt._Ptr;
 		}
-		cout << " this client is not found \n";
 		return nullptr;
 	}
 	void listEmployee() {
@@ -64,10 +56,6 @@ public:
 			p->setName(name);
 			p->setPassword(password);
 			p->setSalary(salary);
-			Fileshelper::ClearFile(E_FILE_PATH, EID_FILE_PATH);
-			for (eIt = employees.begin(); eIt != employees.end(); eIt++) {
-				Fileshelper::saveEmployee(*eIt);
-			}
 		}
 	}
 };

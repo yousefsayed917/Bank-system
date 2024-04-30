@@ -15,7 +15,7 @@ public:
 		cout << " (7) Logout \n";
 	}
 
-	static void UpdatePassword(Client*client) {
+	/*static void UpdatePassword(Client*client) {
 		string newpassword;
 		cout << " enter the new password \n";
 		cin >> newpassword;
@@ -25,8 +25,15 @@ public:
 			Fileshelper::saveClient(*cIt);
 		}
 		cout << "password updated successfully" << endl;
-	}
+	}*/
 
+	static void UpdatePassword(Person* person) {
+		string newpassword;
+		cout << " enter the new password \n";
+		cin >> newpassword;
+		person->setPassword(newpassword);
+		cout << "password updated successfully" << endl;
+	}
 	static Client* Login(int id, string password) {
 		SuperEmployee SE;
 		Client* p = SE.searchClient(id);
@@ -36,13 +43,15 @@ public:
 			}
 			else
 			{
-				cout << "invalid password" << endl;
+				cout << "Invalid password" << endl;
 				return nullptr;
 			}
 		}
 		else
+		{
 			cout << "Not found" << endl;
-		return nullptr;
+			return nullptr;
+		}
 	}
 
 	static bool ClientOptions(Client* client) {
@@ -90,22 +99,18 @@ public:
 		case 6: {
 			system("cls");
 			int id;
-			cout << " enter id of the account you will transfar to it ";
+			cout << "Enter id of the account you will transfar to it ";
 			cin >> id;
 			double amount;
-			cout << "  the amount is : ";
+			cout << "The amount is : ";
 			cin >> amount;
 			for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
 				if (cIt->getId() == id) {
 					client->transfareTo(*cIt, amount);
-					Fileshelper::ClearFile(C_FILE_PATH, CID_FILE_PATH);
-					for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
-						Fileshelper::saveClient(*cIt);
-					}
 					break;
 				}
 				else {
-					cout << " this account is nout found \n";
+					cout << "This account is nout found \n";
 					break;
 				}
 			}
@@ -113,6 +118,10 @@ public:
 			break;
 		}
 		case 7: {
+			Fileshelper::ClearFile(C_FILE_PATH, CID_FILE_PATH);
+			for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
+				Fileshelper::saveClient(*cIt);
+			}
 			return false;
 			break;
 		}
