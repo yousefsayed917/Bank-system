@@ -1,8 +1,10 @@
 #pragma once
-#include "SuperEmployee.h"
-#include "SuperAdmin.h"
+#include "Employee.h"
+#include "Admin.h"
 #include"ClientManager.h"
 #include"Validation.h"
+#include "Fileshelper.h"
+#include "FileManager.h"
 using namespace std;
 class EmployeeManager
 {
@@ -18,21 +20,17 @@ public:
 	}
 
 	static Employee* Login(int id, string password) {
-		SuperAdmin SA;
-		Employee* p = SA.searchEmployee(id);
-		if (p != nullptr) {
-			if (p->getPassword() == password)
-				return p;
+		Admin A;
+		Employee* p = A.searchEmployee(id);
+		if (p != nullptr && p->getPassword() == password) {
+			return p;
+		}
 			else
 			{
-				cout << "Invalid password" << endl;
+				cout << "Invalid password or ID" << endl;
 				return nullptr;
 			}
-		}
-		else {
-			cout << "Not found" << endl;
-			return nullptr;
-		}
+		
 	}
 	static void newClient(Employee* employee) {
 		string name, password;
@@ -50,45 +48,45 @@ public:
 			cout << " enter the balance \n";
 			cin >> balance;
 		} while (!Validation::ValidBalance(balance));
-
 		Client c;
 		c.setId(id);
 		Fileshelper::saveLast(CID_FILE_PATH, id + 1);
 		c.setName(name);
 		c.setPassword(password);
 		c.setBalance(balance);
-		SuperEmployee SE;
-		SE.addClient(c);
+		employee->addClient(c);
 		cout << "the client is added successfully" << endl;
 	}
 	static void listAllClients(Employee* employee) {
-		SuperEmployee SE;
-		SE.listClient();
+		employee->listClient();
 	}
 	static void searchForClient(Employee* employee) {
 		cout << "enter id : \n";
 		int x;
 		cin >> x;
-		SuperEmployee SE;
-		Client* p = SE.searchClient(x);
+		Client* p = employee->searchClient(x);
 		if (p != nullptr) 
 			p->Display();
 	}
 	static void editClientInfo(Employee* employee) {
 		int id;
+		string name, password;
+		double balance;
 		cout << "Enter id : \n";
 		cin >> id;
-		string name;
-		cout << "enter the new name \n";
-		cin >> name;
-		string password;
-		cout << "enter the new password \n";
-		cin >> password;
-		double balance;
-		cout << "enter the new balance \n";
-		cin >> balance;
-		SuperEmployee SE;
-		SE.editClient(id, name, password, balance);
+		do {
+			cout << "enter the name \n";
+			cin >> name;
+		} while (!Validation::validName(name));
+		do {
+			cout << "enter the password \n";
+			cin >> password;
+		} while (!Validation::ValidPassword(password));
+		do {
+			cout << " enter the balance \n";
+			cin >> balance;
+		} while (!Validation::ValidBalance(balance));
+		employee->editClient(id, name, password, balance);
 	}
 	static bool employeeOptions(Employee* employee) {
 		int x;
@@ -105,12 +103,14 @@ public:
 			case 2: {
 				system("cls");
 				ClientManager::UpdatePassword(employee);
+				FileManager::UpdateEmployeeTXT();
 				return true;
 				break;
 			}
 			case 3: {
 				system("cls");
 				newClient(employee);
+				FileManager::UpdateClientTXT();
 				return true;
 				break;
 			}
@@ -129,18 +129,11 @@ public:
 			case 6: {
 				system("cls");
 				editClientInfo(employee);
+				FileManager::UpdateClientTXT();
 				return true;
 				break;
 			}
 			case 7: {
-				Fileshelper::ClearFile(E_FILE_PATH, EID_FILE_PATH);
-				for (eIt = employees.begin(); eIt != employees.end(); eIt++) {
-					Fileshelper::saveEmployee(*eIt);
-				}
-				Fileshelper::ClearFile(C_FILE_PATH, CID_FILE_PATH);
-				for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
-					Fileshelper::saveClient(*cIt);
-				}
 				return false;
 				break;
 			}

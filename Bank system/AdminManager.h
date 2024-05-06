@@ -1,5 +1,8 @@
 #pragma once
-#include "SuperAdmin.h"
+#include "Admin.h"
+#include "Validation.h"
+#include "Fileshelper.h"
+#include "FileManager.h"
 class AdminManager
 {
 public:
@@ -21,123 +24,136 @@ public:
 		cout << " enter the new password \n";
 		cin >> newpassword;
 		admin->setPassword(newpassword);
-		Fileshelper::ClearFile(A_FILE_PATH, AID_FILE_PATH);
-		for (aIt = admins.begin(); aIt != admins.end(); aIt++) {
-			Fileshelper::saveAdmin(*aIt);
-		}
 		cout << "password updated successfully" << endl;
 	}
 	static Admin* Login(int id, string password) {
 		Admin* p = nullptr;
 		for (aIt = admins.begin(); aIt != admins.end(); aIt++) {
-			if (aIt->getId() == id) {
+			if (aIt->getId() == id) 
 				p = aIt._Ptr;
-			}
 			else
-			{
-				cout << " this Admin is not found \n";
 				p = nullptr;
-			}
 		}
-		if (p != nullptr) {
-			if (p->getPassword() == password) {
-				return p;
-			}
-			else
-			{
-				cout << "invalid password" << endl;
-				return nullptr;
-			}
+		if (p != nullptr && p->getPassword() == password) {
+			return p;
 		}
-		else {
+		else
+		{
+			cout << "invalid password or ID" << endl;
 			return nullptr;
 		}
 	}
 	static void newClient(Admin* admin) {
-		string name;
-		cout << " enter the name \n";
-		cin >> name;
-		string password;
-		cout << " enter the password \n";
-		cin >> password;
+		string name, password;
 		double balance;
-		cout << " enter the balance \n";
-		cin >> balance;
-		Client c(name, password, balance);
-		SuperAdmin SA;
-		SA.addClient(c);
+		int id = Fileshelper::getLast(CID_FILE_PATH);
+		do {
+			cout << "enter the name \n";
+			cin >> name;
+		} while (!Validation::validName(name));
+		do {
+			cout << "enter the password \n";
+			cin >> password;
+		} while (!Validation::ValidPassword(password));
+		do {
+			cout << " enter the balance \n";
+			cin >> balance;
+		} while (!Validation::ValidBalance(balance));
+		Client c;
+		c.setId(id);
+		Fileshelper::saveLast(CID_FILE_PATH, id + 1);
+		c.setName(name);
+		c.setPassword(password);
+		c.setBalance(balance);
+		admin->addClient(c);
+		cout << "the client is added successfully" << endl;
 	}
 	static void listAllClients(Admin* admin) {
-		SuperAdmin SA;
-		SA.listClient();
+		admin->listClient();
 	}
 	static void searchForClient(Admin* admin) {
 		cout << " enter id : \n";
 		int x;
 		cin >> x;
-		SuperAdmin SA;
-		Client* p = SA.searchClient(x);
+		Client* p = admin->searchClient(x);
 		if (p != nullptr)
 			p->Display();
 	}
 	static void editClientInfo(Admin*admin) {
 		int id;
-		cout << " enter id : \n";
-		cin >> id;
-		string name;
-		cout << " enter the new name \n";
-		cin >> name;
-		string password;
-		cout << " enter the new password \n";
-		cin >> password;
+		string name, password;
 		double balance;
-		cout << " enter the new balance \n";
-		cin >> balance;
-		SuperAdmin SA;
-		SA.editClient(id, name, password, balance);
+		cout << "Enter id : \n";
+		cin >> id;
+		do {
+			cout << "enter the name \n";
+			cin >> name;
+		} while (!Validation::validName(name));
+		do {
+			cout << "enter the password \n";
+			cin >> password;
+		} while (!Validation::ValidPassword(password));
+		do {
+			cout << " enter the balance \n";
+			cin >> balance;
+		} while (!Validation::ValidBalance(balance));
+		admin->editClient(id, name, password, balance);
 	}
 	static void newEmployee(Admin* admin) {
-		string name;
-		cout << " enter the name \n";
-		cin >> name;
-		string password;
-		cout << " enter the password \n";
-		cin >> password;
-		double balance;
-		cout << " enter the balance \n";
-		cin >> balance;
-		Employee E(name, password, balance);
-		SuperAdmin SA;
-		SA.addEmployee(E);
+		string name, password;
+		double salary;
+		int id = Fileshelper::getLast(EID_FILE_PATH);
+		do {
+			cout << "enter the name \n";
+			cin >> name;
+		} while (!Validation::validName(name));
+		do {
+			cout << "enter the password \n";
+			cin >> password;
+		} while (!Validation::ValidPassword(password));
+		do {
+			cout << " enter the balance \n";
+			cin >> salary;
+		} while (!Validation::ValidSalary(salary));
+		Employee e;
+		e.setId(id);
+		Fileshelper::saveLast(EID_FILE_PATH, id + 1);
+		e.setName(name);
+		e.setPassword(password);
+		e.setSalary(salary);
+		admin->addEmployee(e);
+		cout << "the client is added successfully" << endl;
 	}
 	static void listAllEmployees(Admin* admin) {
-		SuperAdmin SA;
-		SA.listEmployee();
+		admin->listEmployee();
 	}
 	static void searchForEmployee(Admin* admin) {
 		cout << " enter id : \n";
 		int x;
 		cin >> x;
-		SuperAdmin SA;
-		Employee* p = SA.searchEmployee(x);
+		Employee* p = admin->searchEmployee(x);
 		if (p != nullptr)
 			p->Display();
 	}
 	static void editEmployeeInfo(Admin* admin) {
 		int id;
-		cout << " enter id : \n";
+		string name, password;
+		double salary;
+		cout << "Enter id : \n";
 		cin >> id;
-		string name;
-		cout << " enter the new name \n";
-		cin >> name;
-		string password;
-		cout << " enter the new password \n";
-		cin >> password;
-		double balance;
-		cout << " enter the new balance \n";
-		cin >> balance;
-		SuperAdmin SA;
-		SA.editEmployee(id, name, password, balance);
+		do {
+			cout << "enter the name \n";
+			cin >> name;
+		} while (!Validation::validName(name));
+		do {
+			cout << "enter the password \n";
+			cin >> password;
+		} while (!Validation::ValidPassword(password));
+		do {
+			cout << " enter the balance \n";
+			cin >> salary;
+		} while (!Validation::ValidSalary(salary));
+		admin->editEmployee(id, name, password, salary);
 	}
 	static bool AdminOptions(Admin* admin) {
 		int x;
@@ -154,12 +170,14 @@ public:
 		case 2: {
 			system("cls");
 			UpdatePassword(admin);
+			FileManager::UpdateAdminTXT();
 			return true;
 			break;
 		}
 		case 3: {
 			system("cls");
 			newClient(admin);
+			FileManager::UpdateClientTXT();
 			return true;
 			break;
 		}
@@ -178,12 +196,14 @@ public:
 		case 6: {
 			system("cls");
 			editClientInfo(admin);
+			FileManager::UpdateClientTXT();
 			return true;
 			break;
 		}
 		case 7: {
 			system("cls");
 			newEmployee(admin);
+			FileManager::UpdateEmployeeTXT();
 			return true;
 			break;
 		}
@@ -202,6 +222,7 @@ public:
 		case 10: {
 			system("cls");
 			editEmployeeInfo(admin);
+			FileManager::UpdateEmployeeTXT();
 			return true;
 			break;
 		}

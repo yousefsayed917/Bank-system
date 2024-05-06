@@ -1,6 +1,9 @@
 #pragma once
 #include "Client.h"
-#include "SuperEmployee.h"
+#include "Employee.h"
+#include "Fileshelper.h"
+#include "Validation.h"
+#include "FileManager.h"
 using namespace std;
 class ClientManager
 {
@@ -14,46 +17,27 @@ public:
 		cout << " (6) Transfar amount \n";
 		cout << " (7) Logout \n";
 	}
-
-	/*static void UpdatePassword(Client*client) {
-		string newpassword;
-		cout << " enter the new password \n";
-		cin >> newpassword;
-		client->setPassword(newpassword);
-		Fileshelper::ClearFile(C_FILE_PATH, CID_FILE_PATH);
-		for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
-			Fileshelper::saveClient(*cIt);
-		}
-		cout << "password updated successfully" << endl;
-	}*/
-
 	static void UpdatePassword(Person* person) {
-		string newpassword;
-		cout << " enter the new password \n";
-		cin >> newpassword;
-		person->setPassword(newpassword);
+		string newPassword;
+		do {
+			cout << " enter the new password \n";
+			cin >> newPassword;
+		} while (!Validation::ValidPassword(newPassword));
+		person->setPassword(newPassword);
 		cout << "password updated successfully" << endl;
 	}
 	static Client* Login(int id, string password) {
-		SuperEmployee SE;
-		Client* p = SE.searchClient(id);
-		if (p != nullptr) {
-			if (p->getPassword() == password) {
-				return p;
-			}
-			else
-			{
-				cout << "Invalid password" << endl;
-				return nullptr;
-			}
+		Employee E;
+		Client* p = E.searchClient(id);
+		if (p != nullptr && p->getPassword() == password) {
+			return p;
 		}
 		else
 		{
-			cout << "Not found" << endl;
+			cout << "Invalid password or ID" << endl;
 			return nullptr;
 		}
 	}
-
 	static bool ClientOptions(Client* client) {
 		int x;
 		cout << " your choice is : ";
@@ -75,6 +59,7 @@ public:
 		case 3: {
 			system("cls");
 			UpdatePassword(client);
+			FileManager::UpdateClientTXT();
 			return true;
 			break;
 		}
@@ -84,6 +69,7 @@ public:
 			cout << "  the amount is : ";
 			cin >> amount;
 			client->withdraw(amount);
+			FileManager::UpdateClientTXT();
 			return true;
 			break;
 		}
@@ -93,35 +79,30 @@ public:
 			cout << "  the amount is : ";
 			cin >> amount;
 			client->deposit(amount);
+			FileManager::UpdateClientTXT();
 			return true;
 			break;
 		}
 		case 6: {
 			system("cls");
+			Employee e;
 			int id;
-			cout << "Enter id of the account you will transfar to it ";
+			cout << "Enter id of the recipient ";
 			cin >> id;
-			double amount;
-			cout << "The amount is : ";
-			cin >> amount;
-			for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
-				if (cIt->getId() == id) {
-					client->transfareTo(*cIt, amount);
-					break;
-				}
-				else {
-					cout << "This account is nout found \n";
-					break;
-				}
+			while (e.searchClient(id) == nullptr) {
+				cout << "Invalid id.\n";
+				cout << "\nEnter id of the recipient: ";
+				cin >> id;
 			}
+			double amount;
+			cout << "Enter the amount : ";
+			cin >> amount;
+			client->transfareTo(*cIt, amount);
+			FileManager::UpdateClientTXT();
 			return true;
 			break;
 		}
 		case 7: {
-			Fileshelper::ClearFile(C_FILE_PATH, CID_FILE_PATH);
-			for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
-				Fileshelper::saveClient(*cIt);
-			}
 			return false;
 			break;
 		}

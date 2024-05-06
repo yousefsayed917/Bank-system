@@ -48,12 +48,6 @@
     <ClCompile Include="ClientManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SuperEmployee.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SuperAdmin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Screens.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -93,12 +87,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ClientManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SuperEmployee.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SuperAdmin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Screens.h">

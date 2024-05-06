@@ -39,7 +39,6 @@ public:
 			cout << "Min balance is 1500 " << endl;;
 			return false;
 		}
-
 	}
 	static bool ValidSalary(double salary)
 	{
@@ -48,6 +47,7 @@ public:
 		}
 		else {
 			cout << "Min salary is 5000"<<endl;
+			return false;
 		}
 	}
 };
