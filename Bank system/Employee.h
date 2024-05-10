@@ -1,7 +1,4 @@
 #pragma once
-#include<iostream>
-#include <vector>
-#include <iterator>
 #include"Client.h"
 using namespace std;
 class Employee : public Person
@@ -20,11 +17,20 @@ public:
 		this->password = password;
 		setSalary(salary);
 	}
+
+	void setSalary(double salary) {
+		this->salary = salary;
+	}
+
+	double getSalary() {
+		return salary;
+	}
+
 	void addClient(Client& client) {
 		clients.push_back(client);
 	}
-	Client* searchClient(int id) {
 
+	Client* searchClient(int id) {
 		for (cIt = clients.begin(); cIt != clients.end(); cIt++) {
 			if (cIt->getId() == id) return cIt._Ptr;
 		}
@@ -36,24 +42,17 @@ public:
 			cIt->Display();
 		}
 	}
+
 	void editClient(int id, string name, string password, double balance) {
-		Client* p = searchClient(id);
-		if (p != nullptr) {
-			p->setName(name);
-			p->setPassword(password);
-			p->setBalance(balance);
-		}
+		searchClient(id)->setName(name);
+		searchClient(id)->setPassword(password);
+		searchClient(id)->setBalance(balance);
 	}
-	void setSalary(double salary) {
-			this->salary = salary;
-	}
-	double getSalary() {
-		return salary;
-	}
+
 	void Display() {
 		Person::Display();
 		cout << "Salary : " << getSalary() << endl;
-		cout << "================\n";
+		cout << "-------------\n";
 	}
 };
 static vector<Employee> employees;

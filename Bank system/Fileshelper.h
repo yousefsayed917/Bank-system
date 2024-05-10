@@ -1,19 +1,15 @@
 #pragma once
-#include <iostream>
-#include <string>
 #include <fstream>
-#include "Admin.h"
-#include "Client.h"
-#include "Employee.h"
 #include "Parser.h"
 
-using namespace std;
 #define C_FILE_PATH "data/clients.txt"
 #define E_FILE_PATH "data/employees.txt"
 #define A_FILE_PATH "data/admins.txt"
+
 #define CID_FILE_PATH "data/clients_id.txt"
 #define EID_FILE_PATH "data/employees_id.txt"
 #define AID_FILE_PATH "data/admins_id.txt"
+
 class Fileshelper
 {
 public:
@@ -99,13 +95,12 @@ public:
         }
         myFile.close();
     }
-    static void ClearFile(string fileName, string lastIdFile) {
+    static void ClearFile(string fileName, string lastIdFile, int itId) {
         fstream file1, file2;
         file1.open(fileName, ios::out);
         file1.close();
         file2.open(lastIdFile, ios::out);
-        file2 << 0;
+        file2 << itId;
         file2.close();
     }
 };
-

@@ -1,13 +1,9 @@
 #pragma once
 #include<iostream>
-#include<thread>
-#include<chrono>
-#include "ClientManager.h"
-#include "EmployeeManager.h"
-#include "AdminManager.h"
-using namespace std;
-class Screens {
-public:
+#include <windows.h>
+#include"AdminManager.h"
+class Screens
+{
 	static void bankName() {
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "\t\t\t\t    ## #                 ##  ##         ## #" << endl;
@@ -15,182 +11,117 @@ public:
 		cout << "\t\t\t\t    ####   ##       ##   ##  ##  ## ##  ##   ##   ##" << endl;
 		cout << "\t\t\t\t  #########################  ##  ###################" << endl;
 		cout << "\t\t\t\t                                                #" << endl;
-
+		Sleep(2000);
 	}
+
 	static void welcome() {
+		system("cls");
 		int t = 150;
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
 		cout << "\t\t\t\t\t     ##" << endl;
-		this_thread::sleep_for(chrono::milliseconds(t));
+		Sleep(t);
 		cout << "\t\t\t\t\t     ##" << endl;
-		this_thread::sleep_for(chrono::milliseconds(t));
+		Sleep(t);
 		cout << "\t\t\t\t\t     ##         ###           #####" << endl;
-		this_thread::sleep_for(chrono::milliseconds(t));
+		Sleep(t);
 		cout << "\t\t\t\t\t     ##   ##      ##   ##    ##   ##" << endl;
-		this_thread::sleep_for(chrono::milliseconds(t));
+		Sleep(t);
 		cout << "\t\t\t\t\t     ###############   #############" << endl;
-		this_thread::sleep_for(chrono::milliseconds(t));
+		Sleep(t);
 		cout << "\t\t\t\t\t           #           ##" << endl;
-		this_thread::sleep_for(chrono::milliseconds(t));
+		Sleep(t);
 		cout << "\t\t\t\t\t                      ##" << endl;
-		this_thread::sleep_for(chrono::milliseconds(t));
+		Sleep(t);
 		cout << "\t\t\t\t\t                    ##" << endl;
 		cout << "\n\n\n\n\n\n\n\n\n\n";
+		Sleep(1000);
+		system("cls");
 	}
-	static void  loginOptions() {
-		cout << "(1) Client \n";
+
+	static void loginOptions() {
+		cout << "(1) Admin \n";
 		cout << "(2) Employee \n";
-		cout << "(3) Admin \n\n";
+		cout << "(3) Client \n\n";
 	}
+
 	static int loginAs() {
-		cout << "Enter choise: ";
+		system("cls");
+		loginOptions();
+		cout << "Login as: ";
 		int x;
 		cin >> x;
 		if (x > 0 && x <= 3)
 			return x;
 		else {
-			cout << " invalid choise \n";
-			loginAs();
-			return x;
+			system("cls");
+			cout << "Invalid choice" << endl;
+			return loginAs();
 		}
 	}
 
-	static void Invalid(int x) {
-		if (x > 0 && x <= 7)
-			return;
-		cout << " invalid choise \n";
-	}
-
-	static void Logout() {
+	static void logout() {
 		system("cls");
-		loginOptions();
-		LoginScreen(loginAs());
+		loginScreen(loginAs());
 	}
 
-	static void LoginScreen(int x) {
-		int opt;
-		switch (x)
+	static void invalid() {
+		cout << "\nInvalid ID or password!" << endl;
+		Sleep(2000);
+		loginScreen(loginAs());
+	}
+
+	static void loginScreen(int choice) {
+		int id;
+		string password;
+
+		system("cls");
+		cout << "ID: ";
+		cin >> id;
+		cout << "Password: ";
+		cin >> password;
+
+		switch (choice)
 		{
-		case 1: {
-			system("cls");
-			int id;
-			string password;
-			Client* p;
-			do {
-				cout << "Enter id: ";
-				cin >> id;
-				cout << "Enter password: ";
-				cin >> password;
-				p = ClientManager::Login(id, password);
-			} while (p == nullptr);
-			system("cls");
-			ClientManager::PrintClientMenu();
-			if (!ClientManager::ClientOptions(p))
-				Logout();
+		case 1:
+			if (AdminManager::Login(id, password) != nullptr) {
+				while (AdminManager::AdminOptions(AdminManager::Login(id, password)) != false);
+				logout();
+			}
 			else {
-				do {
-					cout << "[1] Client menu\t\t[0] Exit\n";
-					cout << "..::Enter the Choice: ";
-					cin >> opt;
-					switch (opt)
-					{
-					case 0:
-						exit(0);
-						break;
-					case 1:
-						system("cls");
-						ClientManager::PrintClientMenu();
-						if (!ClientManager::ClientOptions(p))
-							Logout();
-						break;
-					default:
-						cout << "Invalid choise!" << endl;
-						break;
-					}
-				} while (opt == 1);
+				invalid();
 			}
 			break;
-		}
-		case 2: {
-			system("cls");
-			int id;
-			string password;
-			Employee* p;
-			do {
-				cout << "Enter id: ";
-				cin >> id;
-				cout << "Enter password: ";
-				cin >> password;
-				p = EmployeeManager::Login(id, password);
-			} while (p == nullptr);
-			system("cls");
-			EmployeeManager::printEmployeeMenu();
-			if (!EmployeeManager::employeeOptions(p))
-				Logout();
-			else {
-				do {
-					cout << "[1] Employee menu\t\t[0] Exit\n";
-					cout << "..::Enter the Choice: ";
-					cin >> opt;
-					switch (opt)
-					{
-					case 0: 
-						exit(0);
-						break;
-					case 1:
-						system("cls");
-						EmployeeManager::printEmployeeMenu();
-						if (!EmployeeManager::employeeOptions(p))
-							Logout();
-						break;
-					default:
-						cout << "\nInvalid choise!" << endl;
-						break;
-					}
-				} while (opt == 1);
-				break;
+
+		case 2:
+			if (EmployeeManager::Login(id, password) != nullptr) {
+				while (EmployeeManager::employeeOptions(EmployeeManager::Login(id, password)) != false);
+				logout();
 			}
-		}
-		case 3: {
-			system("cls");
-			int id;
-			string password;
-			Admin* p;
-			do {
-				cout << "Enter id: ";
-				cin >> id;
-				cout << "Enter password: ";
-				cin >> password;
-				p = AdminManager::Login(id, password);
-			} while (p == nullptr);
-			system("cls");
-			AdminManager::printAdminMenu();
-			if (!AdminManager::AdminOptions(p))
-				Logout();
 			else {
-				do {
-					cout << "[1] Client menu\t\t[0] Exit\n";
-					cout << "..::Enter the Choice: ";
-					cin >> opt;
-					switch (opt)
-					{
-					case 0:
-						exit(0);
-						break;
-					case 1:
-						system("cls");
-						AdminManager::printAdminMenu();
-						if (!AdminManager::AdminOptions(p))
-							Logout();
-						break;
-					default:
-						cout << "\n\t\t\t\t\t\t\t\t\t\tInvalid choise!" << endl;
-						break;
-					}
-				} while (opt == 1);
+				invalid();
 			}
 			break;
+
+		case 3:
+			if (ClientManager::Login(id, password) != nullptr) {
+				while (ClientManager::ClientOptions(ClientManager::Login(id, password)) != false);
+				logout();
+			}
+			else {
+				invalid();
+			}
+			break;
+		default:
+			system("cls");
+			loginScreen(loginAs());
 		}
-		}
+	}
+
+public:
+	static void runApp() {
+		FileManager::getAllData();
+		bankName();
+		welcome();
+		loginScreen(loginAs());
 	}
 };

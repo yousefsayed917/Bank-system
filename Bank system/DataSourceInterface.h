@@ -1,6 +1,6 @@
 #pragma once
-#include "Client.h"
-#include "Admin.h"
+
+#include"FilesHelper.h"
 class DataSourceInterface
 {
 public:
@@ -14,4 +14,3 @@ public:
     virtual void removeAllEmployees() = 0;
     virtual void removeAllAdmins() = 0;
 };
-

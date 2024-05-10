@@ -7,13 +7,13 @@ class Validation
 public:
 	static bool validName(string name) {
 		if (!(name.size() >= 5 && name.size() <= 20)) {
-			cout << "the size of name must be >=5 and <=20\n";
+			cout << "\nthe size of name must be >=5 and <=20!\n" << endl;
 			return false;
 		}
 
 		for (int i = 0; i < name.size(); i++) {
 			if (!(name[i] >= 'a' && name[i] <= 'z' || name[i] >= 'A' && name[i] <= 'Z')) {
-				cout << "The name must be alphabtic character " << endl;
+				cout << "\nThe name must be alphabtic character!\n " << endl;
 				return false;
 			}
 		}
@@ -26,7 +26,7 @@ public:
 		}
 		else
 		{
-			cout << "The password must be >= 8 And <= 20\n";
+			cout << "\nThe password must be >= 8 And <= 20! \n" << endl;
 			return false;
 		}
 	}
@@ -36,9 +36,10 @@ public:
 			return true;
 		}
 		else {
-			cout << "Min balance is 1500 " << endl;;
+			cout << "\nMin balance is 1500! \n" << endl;;
 			return false;
 		}
+
 	}
 	static bool ValidSalary(double salary)
 	{
@@ -46,9 +47,8 @@ public:
 			return true;
 		}
 		else {
-			cout << "Min salary is 5000"<<endl;
+			cout << "Min salary is 5000" << endl;
 			return false;
 		}
 	}
 };
-

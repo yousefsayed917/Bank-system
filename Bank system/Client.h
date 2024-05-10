@@ -2,7 +2,7 @@
 #include <vector>
 #include <iterator>
 #include "Person.h"
-using namespace std;
+
 class Client : public Person
 {
 	double balance;
@@ -15,7 +15,7 @@ public:
 	Client(int id, string name, string password, double balance) :Person(id, name, password) {
 		this->balance = balance;
 	}
-	Client( string name, string password, double balance) {
+	Client(string name, string password, double balance) {
 		this->name = name;
 		this->password = password;
 		this->balance = balance;
@@ -23,14 +23,14 @@ public:
 	void setBalance(double balance) {
 		this->balance = balance;
 	}
-	double getBalance() {          // or check balance
+	double getBalance() {
 		return this->balance;
 	}
 	void deposit(double amount) {
 		if (amount > 0)
 		{
 			this->balance += amount;
-			cout << "The operation completed successfully" << endl;
+			cout << "Operation completed successfully" << endl;
 		}
 	}
 	void withdraw(double amount) {
@@ -46,7 +46,6 @@ public:
 		if (amount <= balance) {
 			balance -= amount;
 			c.deposit(amount);
-			cout << "Operation completed successfully" << endl;
 		}
 		else {
 			cout << " Amount exceeded balance " << endl;
@@ -57,8 +56,8 @@ public:
 	}
 	void Display() {
 		Person::Display();
-		cout << " Balance : " << getBalance() << endl;
-		cout << "================= \n";
+		cout << "Balance : " << getBalance() << endl;
+		cout << "---------------\n";
 	}
 };
 static vector<Client> clients;

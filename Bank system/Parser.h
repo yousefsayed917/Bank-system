@@ -1,10 +1,8 @@
 #pragma once
-#include <iostream>
+
 #include <sstream>
-#include <string>
-#include <vector>
 #include "Admin.h"
-using namespace std;
+
 class Parser
 {
 private:
@@ -44,4 +42,3 @@ public:
 		return admin;
 	}
 };
-
